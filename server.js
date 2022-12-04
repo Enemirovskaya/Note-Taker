@@ -5,18 +5,9 @@ const path = require('path');
 const tipsRouter = (require('./routes/'));
 const notes = require("./db/db.json");
 const app = express();
-const PORT = process.env.PORT||3001
+const PORT = process.env.PORT || 3001
 
 const uuId = require("uuid");
-
-
-app.get("/", function(req, res){
-  res.sendFile(path.join(__dirname, "/public/index.html"));
-});
-
-app.get("/notes", function (req, res){
-  res.sendFile(path.join(__dirname, "/public/notes.html"));
-});
 
 
 // Middleware for parsing JSON and urlencoded form data
@@ -41,6 +32,7 @@ app.post("/api/notes", (req, res)=>{
   res.json(notes);
 });
 
+
 //Delete Notes
 app.delete("/api/notes/:id", (req, res) => {
   const notes = JSON.parse(fs.readFileSync("./db/db.json"));
@@ -48,6 +40,17 @@ app.delete("/api/notes/:id", (req, res) => {
   fs.writeFileSync("./db/db.json", JSON.stringify(delNotes));
   res.json(delNotes);
 })
+
+app.get("/notes", function (req, res){
+  res.sendFile(path.join(__dirname, "/public/notes.html"));
+});
+
+
+app.get("/", function(req, res){
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
