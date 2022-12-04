@@ -5,10 +5,10 @@ const path = require('path');
 const tipsRouter = (require('./routes/'));
 const notes = require("./db/db.json");
 const app = express();
-const PORT = 3001
+const PORT = process.env.PORT||3001
 
 const uuId = require("uuid");
-const{}
+
 
 app.get("/", function(req, res){
   res.sendFile(path.join(__dirname, "/public/index.html"));
